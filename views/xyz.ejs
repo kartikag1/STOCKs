@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <title>APP</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+  </head>
+  <body>
+<!-- Styles -->
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+<!-- Chart code -->
+<script>
+var my = <%- datae %>;
+var myy = <%- month %>;
+var myyy = <%- year %>;
+var myyyy = <%- open %>;
+var myyyyy = <%- close %>;
+
+
+
+
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var chart = am4core.create("chartdiv", am4charts.XYChart);
+chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+var data = [];
+	for(var i=0;i<=365;i++)
+	{
+		data.push({ date: new Date(myyy[i], (myy[i]), my[i]), open: myyyy[i], close: myyyyy[i] });
+	}
+
+
+chart.data = data;
+console.log(chart.data)
+
+var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+
+var series = chart.series.push(new am4charts.LineSeries());
+series.dataFields.dateX = "date";
+series.dataFields.openValueY = "open";
+series.dataFields.valueY = "close";
+series.tooltipText = "open: {openValueY.value} close: {valueY.value}";
+series.sequencedInterpolation = true;
+series.fillOpacity = 0.3;
+series.defaultState.transitionDuration = 1000;
+series.tensionX = 0.8;
+
+var series2 = chart.series.push(new am4charts.LineSeries());
+series2.dataFields.dateX = "date";
+series2.dataFields.valueY = "open";
+series2.sequencedInterpolation = true;
+series2.defaultState.transitionDuration = 1500;
+series2.stroke = chart.colors.getIndex(6);
+series2.tensionX = 0.8;
+
+chart.cursor = new am4charts.XYCursor();
+chart.cursor.xAxis = dateAxis;
+chart.scrollbarX = new am4core.Scrollbar();
+
+}); // end am4core.ready()
+</script>
+
+<!-- HTML -->
+<div>
+	<center>
+		<h1>STOCK ANALYSIS</h1>
+		<h2><%= nme%></h2>
+		<!-- <h3><%= high%></h3> -->
+	</center>
+</div>
+<div id="chartdiv"></div>
+<br><br>
+<center>
+	<a href="/">
+   <button class="pure-button">CHECK FOR ANOTHER STOCK</button>
+</a>
+</center>
+  </body>
+</html>
