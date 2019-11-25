@@ -16,7 +16,7 @@ fs.createReadStream('yah.csv')
   console.log('Saved!');
 });
   });
-  fs.createReadStream('C:/Users/Ritika/Desktop/yah.csv')
+  fs.createReadStream('yah.csv')
   .pipe(csv())
   .on('data', (data) => results.push(data))
   .on('end', () => {
