@@ -1,0 +1,1 @@
+Le nombre d'accidents de la route augmentant de jour en jour, nous avons donc souhaité, pour les réduire, mettre au point un système capable de nous indiquer la principale cause des accidents de la route en analysant l'ensemble de données fourni. Donc, afin de créer un tel système, nous avons choisi ce projet.
